@@ -1,0 +1,72 @@
+﻿@model IEnumerable<eRevenue.Models.RevenuePlan>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h4 class="text-primary">አመታዊ ጥቅል ዕቅድ</h4>
+        </div>
+        <div class="col-6 text-right">  
+            <a asp-controller="RevenuePlan" asp-action="Create" class="btn btn-primary">Create Plan</a>
+        </div>
+    </div>
+    <br />  
+    @if (Model.Count() > 0)
+    {
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                የበጀት አመት
+            </th>
+            <th>
+                አባት ተቋም
+            </th>
+            <th>
+                ልጅ ተቋም
+            </th>
+            <th>
+                አመታዊ እቅድ
+            </th>
+            <th>
+                ቀጥተኛ ታክስ
+            </th>
+            <th>
+                ቀጥተኛ ያልሆነ 
+            </th>
+            <th>
+                ማዘጋጃቤታዊ 
+            </th>
+            <th>
+                ለውጥ ማድረጊያ
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var RevenuePlan in Model)
+        {
+            <tr>
+               <td width="12%">@RevenuePlan.Year.YearName</td>
+               <td width="12%">@RevenuePlan.OrganizationLevel.OrganizationLevelNameAmh</td>
+               <td width="12%">@RevenuePlan.Center.CenterNameAmh</td>
+               <td width="12%">@RevenuePlan.RevenuePlanAmount</td>
+               <td width="12%">@RevenuePlan.RevenuePlanDirect</td>
+               <td width="12%">@RevenuePlan.RevenuePlanIndirect</td>
+               <td width="12%">@RevenuePlan.RevenuePlanMunicipality</td>
+               <td width="12%">
+                   <div class="w-100 btn-group" role="group">
+                       <a asp-controller="RevenuePlan" asp-action="Update" asp-route-Id="@RevenuePlan.RevenuePlanId" class="btn btn-primary mx-1">Update</a>
+                       <a asp-controller="RevenuePlan" asp-action="Delete" asp-route-Id="@RevenuePlan.RevenuePlanId" class="btn btn-danger mx-1">Delete</a>
+                   </div>
+               </td>
+                </tr>
+
+
+            }
+            </tbody>
+    </table>
+    }
+    else
+    {
+        <p>No items created yet</p>
+    }
+
+</div>

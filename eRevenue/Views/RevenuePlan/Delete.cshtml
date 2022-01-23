@@ -1,0 +1,74 @@
+﻿@model eRevenue.Models.ViewModels.RevenuePlanVM
+
+<form method="post" asp-controller="RevenuePlan" asp-action="Delete">
+    <input asp-for="RevenuePlan.RevenuePlanId" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Delete RevenuePlan</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+
+                    <div class="col-3">
+                        <label asp-for="RevenuePlan.Year"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="RevenuePlan.OrganizationLevel"></label>
+                    </div>
+
+                    <div class="col-3">
+                        <label asp-for="RevenuePlan.Center"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="RevenuePlan.RevenuePlanAmount"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <select asp-for="RevenuePlan.YearId" asp-items="@Model.TypeDropDownYear" disabled class="form-control small ">
+                            <option selected>--Select Year --</option>
+                        </select>
+                        <span asp-validation-for="RevenuePlan.Year" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="col-3">
+                        <select asp-for="RevenuePlan.OrganizationLevelId" asp-items="@Model.TypeDropDownOrginizationLevel" disabled class="form-control small">
+                            <option selected>--Select Organization Level --</option>
+                        </select>
+                        <span asp-validation-for="RevenuePlan.OrganizationLevel" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3">
+                        <select asp-for="RevenuePlan.CenterId" asp-items="@Model.TypeDropDownCenter" disabled class="form-control small ">
+                            <option selected>--Select Center --</option>
+                        </select>
+                        <span asp-validation-for="RevenuePlan.Center" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3">
+                        <input asp-for="RevenuePlan.RevenuePlanAmount" disabled class="form-control " />
+                        <span asp-validation-for="RevenuePlan.RevenuePlanAmount" class="text-danger"></span>
+                    </div>
+                </div>            
+            <div class="form-group row">
+                <div class="col-8 offset-2 row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-danger w-75" value="Delete" />
+                    </div>
+                    <div class="col">
+                        <a asp-action="Index" class="btn btn-success w-75">Back</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

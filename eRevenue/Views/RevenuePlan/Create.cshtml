@@ -1,0 +1,121 @@
+﻿@model eRevenue.Models.ViewModels.RevenuePlanVM
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Add RevenuePlan</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+
+                    <div class="col-2">
+                        <label asp-for="RevenuePlan.Year"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="RevenuePlan.OrganizationLevel"></label>
+                    </div>
+
+                    <div class="col-4">
+                        <label asp-for="RevenuePlan.Center"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="RevenuePlan.RevenuePlanAmount"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <select asp-for="RevenuePlan.YearId" asp-items="@Model.TypeDropDownYear" class="form-control small">
+                            <option selected>--Select Year --</option>
+                        </select>
+                        <span asp-validation-for="RevenuePlan.Year" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <select id="OrganizationLevelId" asp-for="RevenuePlan.OrganizationLevelId" asp-items="@Model.TypeDropDownOrginizationLevel" class="form-control small">
+                            <option selected>--Select Organization Level --</option>
+                        </select>
+                        <span asp-validation-for="RevenuePlan.OrganizationLevel" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <select id="CenterId" asp-for="RevenuePlan.CenterId" asp-items="@Model.TypeDropDownCenter" class="form-control small">
+                        </select>
+                        <span asp-validation-for="RevenuePlan.Center" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="RevenuePlan.RevenuePlanAmount" class="form-control" />
+                        <span asp-validation-for="RevenuePlan.RevenuePlanAmount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="RevenuePlan.RevenuePlanDirect"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="RevenuePlan.RevenuePlanIndirect"></label>
+                    </div>
+
+                    <div class="col-4">
+                        <label asp-for="RevenuePlan.RevenuePlanMunicipality"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <input asp-for="RevenuePlan.RevenuePlanDirect" class="form-control" />
+                        <span asp-validation-for="RevenuePlan.RevenuePlanAmount" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="RevenuePlan.RevenuePlanIndirect" class="form-control" />
+                        <span asp-validation-for="RevenuePlan.RevenuePlanAmount" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="RevenuePlan.RevenuePlanMunicipality" class="form-control" />
+                        <span asp-validation-for="RevenuePlan.RevenuePlanAmount" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-4 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="create"/> 
+                        </div>
+                        <div class="col">
+                            <a  asp-action="Index" class="btn btn-info w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var centerOlUrl = '@Url.Action("LoadCenter")';
+
+        let Center = $('#CenterId');
+        $('#OrganizationLevelId').change(function () {
+            Center.empty();
+
+            $.getJSON(centerOlUrl, { OrganizationLevelId: $(this).val() }, function (data) {
+                if (!data) {
+                    return;
+                }
+                Center.append($('<option></option>').val('').text('Please select'));
+                $.each(data, function (index, item) {
+                    Center.append($("<option></option>").val(item.value).text(item.text));
+                });
+            });
+
+        });
+    });
+</script>
+
+}
